@@ -21,7 +21,7 @@ class BlurView(APIView):
     Make prediction
     """
     def __init__(self):
-        self.focalLengths = [math.floor((x * 0.1) * 1e12) / 1e12 for x in range(0, 11)]
+        self.focal_lengths = [math.floor((x * 0.1) * 1e12) / 1e12 for x in range(0, 11)]
         self.layers = {}
 
     def getImagePath(self, image, name):
@@ -38,26 +38,26 @@ class BlurView(APIView):
         data = dict(request.data)
         rgb_image = data['rgb_image'][0]
         depth_image = data['depth_image'][0]
-        focalLength = float(data['focalLength'][0])
-        DoF = float(data['DoF'][0])
-        fStop = float(data['fStop'][0])
-        is_new = Boolean(data['is_new'][0])
+        focal_length = float(data['focal_length'][0])
+        dof = float(data['dof'][0])
+        f_stop = float(data['f_stop'][0])
+        is_image_new = Boolean(data['is_image_new'][0])
 
         rgb_path = self.getImagePath(rgb_image, "rgb")
         depth_path = self.getImagePath(depth_image, "depth")
         rgb_path = os.path.join(settings.MEDIA_ROOT, rgb_path)
         depth_path = os.path.join(settings.MEDIA_ROOT, depth_path)
 
-        if is_new:
+        if is_image_new:
             depth = cv2.imread(depth_path)
             depth = cv2.cvtColor(depth, cv2.COLOR_RGB2BGR)
             depth = utils.toOne(depth)
             depth = cv2.GaussianBlur(depth,(51,51),0)
-            for i in range(len(self.focalLengths)-1):
-                mask = ((depth >= self.focalLengths[i]) & (depth < self.focalLengths[i+1])).astype("float")
-                self.layers[self.focalLengths[i]] = (mask > 0.5).astype("float")
+            for i in range(len(self.focal_lengths)-1):
+                mask = ((depth >= self.focal_lengths[i]) & (depth < self.focal_lengths[i+1])).astype("float")
+                self.layers[self.focal_lengths[i]] = (mask > 0.5).astype("float")
 
-        output = getBokeh.getBokeh(rgb_path, self.layers, focalLength, DoF, fStop)
+        output = getBokeh.getBokeh(rgb_path, self.layers, focal_length, dof, f_stop)
         response = HttpResponse(content_type='image/jpg')
         output = Image.fromarray(np.uint8(output*255))
         output.save(response, "JPEG")

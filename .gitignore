@@ -1,0 +1,11 @@
+###### DJANGO ######
+env
+.vscode
+__pycache__
+.env
+.env.web
+.env.db
+include/**
+lib/**
+env.py
+images/*.jpg

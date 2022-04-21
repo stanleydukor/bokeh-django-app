@@ -11,7 +11,7 @@ def getBokeh(img_path, layers, focal_length=1.0, dof=0.3, f_stop=2.0):
         if layer < focal_length - min(focal_length, dof) or layer > focal_length:
             d = abs(focal_length - layer) / f_stop
             maxD = 0.83
-            maxSize = 100
+            maxSize = 60
             size = (d * maxSize) / maxD
             blurred = lensBlur(img, radius=size/2)
             imgMask = layers[layer] * blurred

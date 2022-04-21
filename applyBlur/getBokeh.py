@@ -17,6 +17,11 @@ def getBokeh(img_path, layers, focal_length=1.0, dof=0.3, f_stop=2.0):
             imgMask = layers[layer] * blurred
         else:
             imgMask = layers[layer] * img
-    output = output + imgMask
+        output = output + imgMask
 
     return output
+
+# cv2.namedWindow('image', cv2.WINDOW_NORMAL)
+# cv2.resizeWindow('image', 600,600)
+# cv2.imshow('image',disk)
+# cv2.waitKey(0)

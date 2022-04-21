@@ -41,6 +41,7 @@ class BlurView(APIView):
         focal_length = float(data['focal_length'][0])
         dof = float(data['dof'][0])
         f_stop = float(data['f_stop'][0])
+        shape = data['shape'][0]
         is_image_new = Boolean(data['is_image_new'][0])
 
         rgb_path = self.getImagePath(rgb_image, "rgb")
@@ -57,7 +58,7 @@ class BlurView(APIView):
                 mask = ((depth >= self.focal_lengths[i]) & (depth < self.focal_lengths[i+1])).astype("float")
                 self.layers[self.focal_lengths[i]] = (mask > 0.5).astype("float")
 
-        output = getBokeh.getBokeh(rgb_path, self.layers, focal_length, dof, f_stop)
+        output = getBokeh.getBokeh(rgb_path, self.layers, focal_length, dof, f_stop, shape)
         response = HttpResponse(content_type='image/jpg')
         output = Image.fromarray(np.uint8(output*255))
         output.save(response, "JPEG")

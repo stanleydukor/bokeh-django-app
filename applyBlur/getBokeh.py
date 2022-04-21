@@ -1,6 +1,6 @@
 from .utils import *
 
-def getBokeh(img_path, layers, focal_length=1.0, dof=0.3, f_stop=2.0):
+def getBokeh(img_path, layers, focal_length=1.0, dof=0.3, f_stop=2.0, shape="disk"):
     img = cv2.imread(img_path)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     img = toOne(img)
@@ -13,7 +13,8 @@ def getBokeh(img_path, layers, focal_length=1.0, dof=0.3, f_stop=2.0):
             maxD = 0.83
             maxSize = 60
             size = (d * maxSize) / maxD
-            blurred = lensBlur(img, radius=size/2)
+            radius = size / 2
+            blurred = lensBlur(img, radius, shape)
             imgMask = layers[layer] * blurred
         else:
             imgMask = layers[layer] * img

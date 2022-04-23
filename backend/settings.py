@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     'blur-django-app.herokuapp.com',
-    'https://bokehianrhapsody.netlify.com/'
+    'https://bokehianrhapsody.netlify.com/',
+    'https://bokehianrhapsody.netlify.app/'
 ]
 
 CORS_ORIGIN_ALLOW_ALL=True
@@ -38,6 +39,7 @@ CORS_ORIGIN_ALLOW_ALL=True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'https://bokehianrhapsody.netlify.com',
+    'https://bokehianrhapsody.netlify.app',
     'http://localhost:3000',
     'http://google.com',
     'http://localhost:8000',

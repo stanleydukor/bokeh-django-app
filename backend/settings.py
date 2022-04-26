@@ -26,24 +26,15 @@ SECRET_KEY = 'django-insecure-ja7gk&)_5a0t%u3l=-5djjoa!83gew$44oo%nfsy3q!_07t847
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'blur-django-app.herokuapp.com',
-    'https://bokehianrhapsody.netlify.com/',
-    'https://bokehianrhapsody.netlify.app/'
-]
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL=True
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'http://localhost:3001',
     'https://bokehianrhapsody.netlify.com',
     'https://bokehianrhapsody.netlify.app',
-    'http://localhost:3000',
-    'http://google.com',
-    'http://localhost:8000',
-    'http://127.0.0.1:9000'
 ]
 
 # Application definition
